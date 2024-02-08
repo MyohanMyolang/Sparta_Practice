@@ -10,7 +10,7 @@ class NotFoundTargetException : CustomException {
 
 	constructor(message: String) : super(message, errorCode)
 
-	constructor(payload: Any): super(errorCode = errorCode, payload = payload)
+	constructor(payload: Any) : super(errorCode = errorCode, payload = payload)
 
 	constructor(message: String, payload: Any) : super(
 		message,
@@ -20,6 +20,7 @@ class NotFoundTargetException : CustomException {
 
 	override fun log() {
 		super.logger.error("대상 Entity를 찾지 못하였습니다.")
+		message?.let { super.logger.info(it) }
 		super.logger.info("payload = $payload")
 	}
 }

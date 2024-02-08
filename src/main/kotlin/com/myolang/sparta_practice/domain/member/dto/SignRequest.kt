@@ -12,5 +12,9 @@ data class SignRequest(
     @field:NotBlank(message = "PASSWORD를 입력하여 주십시오.")
     @field:Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).*$", message = "대문자, 숫자, 특수 문자를 포함 시켜 주십시오.")
     @field:Size(min = 8, max = 15, message = "PASSWORD는 8글자 이상으로 작성되어야 합니다.")
-    val password: String
+    val password: String,
+
+    @field:NotBlank(message = "닉네임이 입력되지 않았습니다.")
+    @field:Size(min = 4, max = 16, message = "nickname은 4-16 byte 이내로 작성되여야 합니다.")
+    val nickname: String
 )

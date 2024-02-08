@@ -1,12 +1,15 @@
 package com.myolang.sparta_practice.domain.comment.entity
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
+import com.myolang.sparta_practice.domain.post.entity.PostEntity
+import jakarta.persistence.*
 
 @Entity
-class CommentEntity() {
+@Table(name = "comment")
+class CommentEntity(
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "post_id")
+	val post: PostEntity
+) {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	val id: Long? = null

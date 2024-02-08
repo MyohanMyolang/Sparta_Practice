@@ -10,6 +10,7 @@ class AuthApiService(
 ) {
 	fun signUp(signRequest: SignRequest) =
 		memberService.signUp(signRequest)
+			.let { true }
 
 	fun signIn(signRequest: SignRequest) =
 		memberService.signIn(signRequest)

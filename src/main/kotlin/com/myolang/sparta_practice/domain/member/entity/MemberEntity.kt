@@ -1,10 +1,8 @@
 package com.myolang.sparta_practice.domain.member.entity
 
 import com.myolang.sparta_practice.domain.member.dto.SignRequest
-import com.myolang.sparta_practice.domain.member.dto.SignupResponse
 import com.myolang.sparta_practice.domain.member.type.UserRole
 import io.hypersistence.utils.hibernate.type.array.ListArrayType
-import io.hypersistence.utils.hibernate.type.array.StringArrayType
 import jakarta.persistence.*
 import org.hibernate.annotations.Type
 
@@ -24,7 +22,9 @@ class MemberEntity(
 
 	@Type(value = ListArrayType::class)
 	@Column(columnDefinition = "text[]")
-	var passwordList: List<String>
+	var passwordList: List<String>,
+
+	var nickname: String
 ) {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,13 +37,14 @@ class MemberEntity(
 		this.passwordList = passwordList
 	}
 
-	companion object{
+	companion object {
 		fun of(dto: SignRequest, role: UserRole) =
 			MemberEntity(
 				email = dto.email,
 				password = dto.password,
 				role = role,
-				passwordList = listOf(dto.password)
+				passwordList = listOf(dto.password),
+				nickname = dto.nickname
 			)
 	}
 }

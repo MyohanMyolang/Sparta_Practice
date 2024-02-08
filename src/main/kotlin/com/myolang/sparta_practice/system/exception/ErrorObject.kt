@@ -5,5 +5,5 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming
 data class ErrorObject(
 	val errorCode: Long,
 	val message: String,
-	val payload: Any?
+	val payload: Any? = null
 )

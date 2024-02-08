@@ -10,8 +10,10 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 
 
+@RestController
 @RequestMapping("/auth")
 class AuthController(
 	private val authApiService: AuthApiService
@@ -22,7 +24,7 @@ class AuthController(
 	}
 
 	@PostMapping("/signin")
-	fun signIn(@RequestBody @Valid signRequest: SignRequest): ResponseEntity<SignInResponse> {
-		return ResponseEntity.status(HttpStatus.CREATED).body(authApiService.signIn(signRequest))
+	fun signIn(@RequestBody @Valid signRequest: SignRequest) = responseEntity(HttpStatus.OK){
+		authApiService.signIn(signRequest)
 	}
 }

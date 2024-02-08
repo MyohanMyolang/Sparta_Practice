@@ -2,10 +2,21 @@ package com.myolang.sparta_practice.domain.member.auth.jwt.token
 
 import org.springframework.security.authentication.AbstractAuthenticationToken
 
-class JwtPreAuthenticationToken(
+class JwtPreAuthenticationToken : AbstractAuthenticationToken {
 	private val token: String
-): AbstractAuthenticationToken(null) {
+	private var authenticated: Boolean
+
+	constructor(token: String) : super(null) {
+		this.token = token
+		this.authenticated = false
+	}
+
+	constructor(token: String, authenticated: Boolean) : super(null) {
+		this.token = token
+		this.authenticated = authenticated
+	}
+
 	override fun getPrincipal() = null
 	override fun getCredentials() = token
-	override fun isAuthenticated(): Boolean = false
+	override fun isAuthenticated(): Boolean = authenticated
 }
