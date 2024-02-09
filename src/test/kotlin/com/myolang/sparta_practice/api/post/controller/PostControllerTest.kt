@@ -14,10 +14,12 @@ import io.kotest.assertions.print.print
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.extensions.spring.SpringExtension
 import io.kotest.matchers.shouldBe
+import io.mockk.InternalPlatformDsl.toArray
 import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.junit5.MockKExtension
 import net.minidev.json.parser.JSONParser
+import org.json.JSONArray
 import org.json.JSONObject
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -63,15 +65,15 @@ class PostControllerTest @Autowired constructor(
 					val result = mockMvc.perform(
 						get("/post/$postId")
 							.contentType(MediaType.APPLICATION_JSON)
-							.accept(MediaType.APPLICATION_JSON)
+							.accept(MediaType.APPLICATION_JSON_UTF8)
 					).andReturn()
 					val content = JSONObject(result.response.contentAsString)
 
 					content.get("title") shouldBe "Test Title"
 
-					val tagList = content.get("tagList")
+					val tagList = content.get("tagList") as JSONArray
 
-					tagList shouldBe "태"
+					tagList[0] shouldBe "태"
 				}
 			}
 		}
