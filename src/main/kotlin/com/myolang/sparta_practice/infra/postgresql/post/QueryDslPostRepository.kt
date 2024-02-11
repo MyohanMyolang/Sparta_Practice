@@ -15,7 +15,7 @@ class QueryDslPostRepository : QueryDslSupport() {
 	fun searchPostListByTitleOrTagListOrDescription(title: String?, tagList: List<String>?, description: String?): MutableList<PostEntity> =
 		queryFactory
 			.selectFrom(post)
-			.also {
+			.also { query ->
 				BooleanBuilder().also { builder ->
 					title?.let { builder.or(post.title.contains(it)) }
 					tagList?.let {
@@ -26,7 +26,7 @@ class QueryDslPostRepository : QueryDslSupport() {
 						).let { builder.or(it) }
 					}
 					description?.let { builder.or(post.description.contains(it)) }
-				}.let { builder -> it.where(builder) }
+				}.let { builder -> query.where(builder) }
 			}
 			.fetch()
 }

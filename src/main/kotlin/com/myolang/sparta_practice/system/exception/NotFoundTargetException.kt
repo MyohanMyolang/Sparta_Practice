@@ -2,25 +2,22 @@ package com.myolang.sparta_practice.system.exception
 
 class NotFoundTargetException : CustomException {
 
-	companion object {
-		private val errorCode = ErrorCode.NOTFOUND_ENTITY_ERROR
-	}
+    override val errorCode = ErrorCode.NOTFOUND_ENTITY_ERROR
 
-	constructor() : super(errorCode = errorCode)
+    constructor() : super()
 
-	constructor(message: String) : super(message, errorCode)
+    constructor(message: String) : super(message)
 
-	constructor(payload: Any) : super(errorCode = errorCode, payload = payload)
+    constructor(payload: Any) : super(payload = payload)
 
-	constructor(message: String, payload: Any) : super(
-		message,
-		errorCode,
-		payload
-	)
+    constructor(message: String, payload: Any) : super(
+        message,
+        payload
+    )
 
-	override fun log() {
-		super.logger.error("대상 Entity를 찾지 못하였습니다.")
-		message?.let { super.logger.info(it) }
-		super.logger.info("payload = $payload")
-	}
+    override fun log() {
+        super.logger.error("대상 Entity를 찾지 못하였습니다.")
+        message?.let { super.logger.info(it) }
+        super.logger.info("payload = $payload")
+    }
 }

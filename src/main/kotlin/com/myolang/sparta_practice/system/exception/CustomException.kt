@@ -16,11 +16,11 @@ import org.springframework.http.ResponseEntity
  */
 abstract class CustomException(
 	override val message: String? = null,
-	private val errorCode: ErrorCode,
 	val payload: Any? = null
 ) : RuntimeException() {
 
 	open val logger: Logger = LoggerFactory.getLogger(this::class.java)
+	abstract val errorCode: ErrorCode
 
 	abstract fun log()
 
