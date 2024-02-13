@@ -12,13 +12,13 @@ import java.time.LocalDateTime
 @Entity
 @Table(name = "post")
 class PostEntity(
-	val title: String,
+	var title: String,
 
-	val description: String,
+	var description: String,
 
 	@Type(value = ListArrayType::class)
 	@Column(columnDefinition = "text[]")
-	val tagList: List<String>,
+	var tagList: List<String>,
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "member_id")
